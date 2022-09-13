@@ -12,6 +12,17 @@ class MatchServices {
     });
     return matches;
   };
+
+  findByFilter = async (params: boolean): Promise<Match[]> => {
+    const filteredMatches = await MatchesModel.findAll({
+      where: { inProgress: params },
+      include: [
+        { model: TeamModel, as: 'teamHome', attributes: ['teamName'] },
+        { model: TeamModel, as: 'teamAway', attributes: ['teamName'] },
+      ],
+    });
+    return filteredMatches;
+  };
 }
 
 export default MatchServices;
