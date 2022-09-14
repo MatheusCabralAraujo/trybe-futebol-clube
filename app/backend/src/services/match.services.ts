@@ -2,6 +2,7 @@ import ValidationsError from '../middleware/error';
 import TeamModel from '../database/models/team.model';
 import MatchesModel from '../database/models/matches.model';
 import MatchCreation from '../interface/MatchCreation.interface';
+import MatchGoals from '../interface/MatchGoals.interface';
 import Match from '../interface/Match.interface';
 
 class MatchServices {
@@ -36,6 +37,16 @@ class MatchServices {
     if (!findById) throw new ValidationsError(404, 'Match does not exist');
 
     await MatchesModel.update({ inProgress: false }, { where: { id } });
+    return true;
+  };
+
+  patchGoals = async (id: number, body: MatchGoals) => {
+    const findById = await MatchesModel.findOne({ where: { id } });
+    if (!findById) throw new ValidationsError(404, 'Match does not exist');
+
+    const { homeTeamGoals, awayTeamGoals } = body;
+
+    await MatchesModel.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
     return true;
   };
 }

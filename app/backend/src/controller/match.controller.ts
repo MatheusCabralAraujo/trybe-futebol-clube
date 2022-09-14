@@ -42,13 +42,22 @@ public create = async (req: Request, resp: Response) => {
   return resp.status(201).json(create);
 };
 
-public patch = async (req: Request, resp: Response) => {
-  const { id } = req.params;
-  const updatedMatch = await this.matchServices.patch(+id);
-  if (updatedMatch) {
-    resp.status(200).json({ message: 'Finished' });
-  }
-};
+  public patch = async (req: Request, resp: Response) => {
+    const { id } = req.params;
+    const updatedMatch = await this.matchServices.patch(+id);
+    if (updatedMatch) {
+      resp.status(200).json({ message: 'Finished' });
+    }
+  };
+
+  public patchGoals = async (req: Request, resp: Response) => {
+    const { params, body } = req;
+    const { id } = params;
+    const matchGoal = await this.matchServices.patchGoals(+id, body);
+    if (matchGoal) {
+      resp.status(200).json({ message: 'Gol do Bragantino!' });
+    }
+  };
 }
 
 export default MatchController;
