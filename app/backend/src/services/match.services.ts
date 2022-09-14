@@ -1,5 +1,6 @@
 import TeamModel from '../database/models/team.model';
 import MatchesModel from '../database/models/matches.model';
+import MatchCreation from '../interface/MatchCreation.interface';
 import Match from '../interface/Match.interface';
 
 class MatchServices {
@@ -23,6 +24,12 @@ class MatchServices {
     });
     return filteredMatches;
   };
+
+  create = async (body: MatchCreation): Promise<Match> => {
+    const matchCreated = await MatchesModel.create(body);
+    return matchCreated;
+  };
+
 }
 
 export default MatchServices;
