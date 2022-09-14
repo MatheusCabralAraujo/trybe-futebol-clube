@@ -41,6 +41,14 @@ public create = async (req: Request, resp: Response) => {
 
   return resp.status(201).json(create);
 };
+
+public patch = async (req: Request, resp: Response) => {
+  const { id } = req.params;
+  const updatedMatch = await this.matchServices.patch(+id);
+  if (updatedMatch) {
+    resp.status(200).json({ message: 'Finished' });
+  }
+};
 }
 
 export default MatchController;

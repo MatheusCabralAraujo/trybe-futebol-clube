@@ -1,3 +1,4 @@
+import ValidationsError from '../middleware/error';
 import TeamModel from '../database/models/team.model';
 import MatchesModel from '../database/models/matches.model';
 import MatchCreation from '../interface/MatchCreation.interface';
@@ -30,6 +31,13 @@ class MatchServices {
     return matchCreated;
   };
 
+  patch = async (id: number) => {
+    const findById = await MatchesModel.findOne({ where: { id } });
+    if (!findById) throw new ValidationsError(404, 'Match does not exist');
+
+    await MatchesModel.update({ inProgress: false }, { where: { id } });
+    return true;
+  };
 }
 
 export default MatchServices;

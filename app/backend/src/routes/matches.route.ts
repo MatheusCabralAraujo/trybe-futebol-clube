@@ -9,5 +9,6 @@ const validateToken = new ValidateToken();
 
 MatchRouter.get('/', matchController.getAll);
 MatchRouter.post('/', validateToken.tokenValidation, matchController.create);
+MatchRouter.patch('/:id/finish', matchController.patch);
 
 export default MatchRouter;
