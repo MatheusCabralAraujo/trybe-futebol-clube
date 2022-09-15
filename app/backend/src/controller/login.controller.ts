@@ -30,7 +30,7 @@ class LoginController {
       if (authorization) {
         const result = await Jwt.validateToken(authorization);
         const { role } = result;
-        return resp.status(200).json({ message: role });
+        return resp.status(200).json({ role });
       }
     } catch (_error) {
       throw new ValidationsError(400, 'Invalid Authorization');
