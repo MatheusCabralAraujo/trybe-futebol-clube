@@ -1,5 +1,5 @@
 import { HomeTeamCalculation,
-  AwayTeamCalculation, FinalCalculation } from '../utils/LeaderBoardCalculation';
+  AwayTeamCalculation, FinalCalculation, sortLeader } from '../utils/LeaderBoardCalculation';
 import MatchServices from './match.services';
 import TeamsServices from './teams.services';
 import { LeaderboardTeam } from '../interface/LeaderBoardTeamInterface';
@@ -37,6 +37,21 @@ export default class LeaderboardServices {
     HomeTeamCalculation(allFinishedMatches, homeLeader);
     AwayTeamCalculation(allFinishedMatches, awayLeader);
     FinalCalculation(homeLeader, awayLeader);
+    return homeLeader;
+  };
+
+  public filterByHomeTeam = async () => {
+    const allTeams = await this.teamsServices.getAll();
+    const allFinishedMatches = await this.matchServices.findByFilter(false);
+    const homeLeader: LeaderboardTeam[] = [];
+
+    allTeams.forEach((team) => {
+      homeLeader.push(new HomeTeam(team.teamName));
+    });
+
+    HomeTeamCalculation(allFinishedMatches, homeLeader);
+    homeLeader.forEach((team) => team.addEfficiency(team.totalPoints, team.totalGames));
+    sortLeader(homeLeader);
     return homeLeader;
   };
 }

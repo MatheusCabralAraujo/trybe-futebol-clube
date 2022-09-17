@@ -59,7 +59,7 @@ const addProperties = (properties : Properties) => {
   teamLeaderboard.addEfficiency(teamLeaderboard.totalPoints, teamLeaderboard.totalGames);
 };
 
-const sortLeader = (homeLeader: LeaderboardTeam[]) => {
+export const sortLeader = (homeLeader: LeaderboardTeam[]) => {
   homeLeader.sort((b, a) => b.goalsOwn - a.goalsOwn)
     .sort((b, a) => a.goalsFavor - b.goalsFavor)
     .sort((b, a) => a.goalsBalance - b.goalsBalance)
