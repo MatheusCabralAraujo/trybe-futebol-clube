@@ -42,7 +42,7 @@ export default class TimeDaCasa implements LeaderboardTeam {
 
   verifyGameResult(homeTeamGoals: number, awayTeamGoals: number): void {
     if (homeTeamGoals < awayTeamGoals) this.addVictory();
-    if (homeTeamGoals === awayTeamGoals) this.addDraws();
+    else if (homeTeamGoals === awayTeamGoals) this.addDraws();
     else this.addLosses();
   }
 
