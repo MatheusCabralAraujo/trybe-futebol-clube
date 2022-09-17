@@ -17,6 +17,11 @@ class LeaderboardController {
     const leaderboard = await this.leaderboardServices.filterByHomeTeam();
     return resp.status(200).json(leaderboard);
   };
+
+  public filterByAwayTeam = async (_req: Request, resp: Response) => {
+    const leaderboard = await this.leaderboardServices.filterByAwayTeam();
+    return resp.status(200).json(leaderboard);
+  };
 }
 
 export default LeaderboardController;

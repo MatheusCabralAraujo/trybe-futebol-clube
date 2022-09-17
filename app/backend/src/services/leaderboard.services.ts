@@ -54,4 +54,19 @@ export default class LeaderboardServices {
     sortLeader(homeLeader);
     return homeLeader;
   };
+
+  public filterByAwayTeam = async () => {
+    const allTeams = await this.teamsServices.getAll();
+    const allFinishedMatches = await this.matchServices.findByFilter(false);
+    const awayLeader: LeaderboardTeam[] = [];
+
+    allTeams.forEach((team) => {
+      awayLeader.push(new AwayTeam(team.teamName));
+    });
+
+    AwayTeamCalculation(allFinishedMatches, awayLeader);
+    awayLeader.forEach((team) => team.addEfficiency(team.totalPoints, team.totalGames));
+    sortLeader(awayLeader);
+    return awayLeader;
+  };
 }
