@@ -1,9 +1,12 @@
-import { HomeTeamCalculation, AwayTeamCalculation } from '../utils/LeaderBoardCalculation';
+import { HomeTeamCalculation,
+  AwayTeamCalculation, FinalCalculation } from '../utils/LeaderBoardCalculation';
 import MatchServices from './match.services';
 import TeamsServices from './teams.services';
 import { LeaderboardTeam } from '../interface/LeaderBoardTeamInterface';
 import HomeTeam from '../utils/HomeTeam.utils';
 import AwayTeam from '../utils/AwayTeam.utils';
+// import FinalLeaderBoard from '../utils/FinalLeaderboard';
+// import { FinalLeaderBoardInterface } from '../interface/FinalLeaderBoardInterface';
 
 export default class LeaderboardServices {
   private teamsServices : TeamsServices;
@@ -33,10 +36,7 @@ export default class LeaderboardServices {
 
     HomeTeamCalculation(allFinishedMatches, homeLeader);
     AwayTeamCalculation(allFinishedMatches, awayLeader);
-
-    return {
-      homeLeader,
-      awayLeader,
-    };
+    FinalCalculation(homeLeader, awayLeader);
+    return homeLeader;
   };
 }

@@ -73,8 +73,7 @@ export default class HomeTeam implements LeaderboardTeam {
   }
 
   addEfficiency(totalPoints: number, totalGames: number): number {
-    const calculus = (totalPoints / (totalGames * 3)) * 100;
-    calculus.toFixed(2);
+    const calculus = +((totalPoints / (totalGames * 3)) * 100).toFixed(2);
     this.efficiency = calculus;
     return this.efficiency;
   }
